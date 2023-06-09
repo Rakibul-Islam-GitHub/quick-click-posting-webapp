@@ -1,0 +1,47 @@
+.feed-main{
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* height: 100vh; */
+}
+.post-home{
+    width: 50%;
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.single-post{
+    /* border-radius: 1px ; */
+    border: 2px rgb(48, 36, 36);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    
+
+}
+.post{
+    justify-content: center;
+    width: 100%;
+    height: fit-content;
+}
+.imagePost{
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
+}
+.name{
+    margin-left: 5px;
+}
+.time{
+    margin-right: 5px;
+}
+.ProfilePhoto{
+    margin-left: 2px;
+}
