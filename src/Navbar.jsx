@@ -1,32 +1,37 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 
 import logonav from "./images/QC Logo.png";
+import { AuthContext } from "./context/AuthContext";
 
 
 const Navbar = () => {
+  const { authenticated } = useContext(AuthContext)
+
   return (
     <div>
       <nav className="navbar">
         <div className="logo">
           <img src={logonav} alt="Logo" className="logo-img" />
         </div>
-        {/* <div className="search-bar">
-          <input type="text" placeholder="Search" />
-        </div> */}
+        
         <div>
           <ul className="nav-links">
             <li>
-              <a href="/">Home</a>
+              <Link to="/">Home</Link>
             </li>
             <li>
               <a href="/friends">Friends</a>
             </li>
-            <li>
-              <Link to ={'/login'}>
+            {authenticated ? <li>
+              <Link to ={'#'}>
               <button className="nav-button">Log Out</button></Link>
-            </li>
+            </li> :
+            <li >
+              <Link to ={'/login'}>
+              <button className="nav-button" style={{backgroundColor:'#7f2f11'}}>Log in</button></Link>
+            </li>}
           </ul>
         </div>
       </nav>
