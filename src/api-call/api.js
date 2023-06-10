@@ -97,3 +97,40 @@ export const getComment = async(cb) => {
       }
    
   };
+
+
+  export const doUpvote = async (postid, token, cb) => {
+ 
+  const res= await  fetch(`${API_URL}/api/post/upvote/${postid}`, {
+        method: "PUT",
+        headers: {
+          
+          Authorization: `Bearer ${token}`
+        }
+      })
+      if (res.status===200) {
+        const result=  await res.json()
+        return cb(result)
+      }else{
+        return cb(false)
+      }
+   
+  };
+
+  export const doDownvote = async (postid, token, cb) => {
+ 
+  const res= await  fetch(`${API_URL}/api/post/downvote/${postid}`, {
+        method: "PUT",
+        headers: {
+          
+          Authorization: `Bearer ${token}`
+        }
+      })
+      if (res.status===200) {
+        const result=  await res.json()
+        return cb(result)
+      }else{
+        return cb(false)
+      }
+   
+  };
