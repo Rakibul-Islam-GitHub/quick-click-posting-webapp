@@ -78,3 +78,22 @@ export const getComment = async(cb) => {
       }
    
   };
+
+  export const doAddPost = async (formdata, token, cb) => {
+ 
+  const res= await  fetch(`${API_URL}/api/post/add`, {
+        method: "POST",
+        body: formdata,
+        headers: {
+          
+          Authorization: `Bearer ${token}`
+        }
+      })
+      if (res.status===200) {
+        const result=  await res.json()
+        return cb(result)
+      }else{
+        return cb(false)
+      }
+   
+  };
