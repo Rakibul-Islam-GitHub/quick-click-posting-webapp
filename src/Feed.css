@@ -45,3 +45,77 @@
 .ProfilePhoto{
     margin-left: 2px;
 }
+
+.post-wrapper p{
+    text-align: left;
+}
+.post-wrapper{
+    padding: 0 10px;
+}
+
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    padding: 15px 10px;
+}
+
+.comment-box {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 7px;
+    margin-bottom: 10px;
+}
+
+.single-comment {
+    text-align: left;
+}
+.comment-name {
+    margin-right: 20px;
+    font-weight: 500;
+}
+.comment-time {
+    font-weight: 300;
+    font-size: small;
+}
+p.comment {
+    margin: 5px 0px;
+}
+
+.comment-disable-msg{
+    padding: 0 10px;
+    background-color: none;
+    color: brown;
+    font-weight: 300;
+}
+
+.liked-btn, .disliked-btn {
+    font-weight: 800 !important;
+    margin-top: -3px !important;
+    margin-right: 30px !important;
+    
+}
+.liked-icon, .disliked-icon{
+    margin-top: 10px !important;
+    font-size: 15px;
+}
+
+@media only screen and (max-width: 991px) {
+    .post-home{
+        width: 80%;
+        
+    }
+}
+@media only screen and (max-width: 768px) {
+    .post-home{
+        width: 90%;
+        
+    }
+}
