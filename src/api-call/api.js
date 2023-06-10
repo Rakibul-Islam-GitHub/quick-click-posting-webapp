@@ -10,3 +10,15 @@ export const getPost = async(cb) => {
       })
       .catch((err) => console.log(err.message));
   };
+
+
+export const getComment = async(cb) => {
+    fetch(`${API_URL}/api/comment`, {
+      method: "get",
+    })
+      .then((res) => res.json())
+        .then((result) => {
+          return cb(result)
+      })
+      .catch((err) => console.log(err.message));
+  };
