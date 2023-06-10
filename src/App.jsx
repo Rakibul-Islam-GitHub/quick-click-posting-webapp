@@ -10,6 +10,7 @@ import Register from './Register'
 import { BrowserRouter } from "react-router-dom";
 import {Routes as Router, Route, Navigate, Outlet} from 'react-router-dom'
 import { AuthContext, AuthProvider } from "./context/AuthContext";
+import PageNotFound from "./PageNotFound";
 
 const PrivateRoutes = () => {
   const { authenticated } = useContext(AuthContext)
@@ -35,6 +36,7 @@ function App() {
       <Route element={<PrivateRoutes />}>
         <Route path='/home' element={<Homepage />} />
       </Route>
+      <Route path="*" element={<PageNotFound />} />
     </Router>
         </AuthProvider>
         
