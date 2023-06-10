@@ -1,42 +1,68 @@
 import React, { useContext, useEffect,  useState } from "react";
 import { Button, TextField } from "@mui/material";
 import "./Feed.css";
-import image from "./images/mymind-XUlsF9LYeVk-unsplash.jpg";
 import imageProfile from "./images/avatar.png"
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import {AiOutlineLike} from 'react-icons/ai';
+import {AiFillDislike, AiFillLike, AiOutlineLike} from 'react-icons/ai';
 import {AiOutlineDislike} from 'react-icons/ai';
 
 import {
   Card,
-  CardMedia,
+ 
   CardActionArea,
-  CardContent,
   Typography,
   CardActions,
   Avatar,
 } from "@mui/material";
-import {   doComment, getComment, getPost } from "./api-call/api";
+import {   doComment, doDownvote, doUpvote, getComment, getPost } from "./api-call/api";
 import { AuthContext } from "./context/AuthContext";
-const Feed = () => {
+const Feed = ({posts, setPosts}) => {
   const {user}= useContext(AuthContext)
-  const [posts, setPosts] = useState([])
+
   const [comments, setComments] = useState([])
   
   
 
   useEffect(() => {
-    getPost((res) => {
-        setPosts(res)
-    });
+    
     getComment((res) => {
       setComments(res)
   });
     
   }, [])
 
-
-
+  const handleUpvote=(postid)=>{
+    if (!user.token) {
+      alert('please login to like this post!')
+    }
+    doUpvote(postid, user.token,  (res)=>{
+   
+      if (res) {
+        console.log(res);
+        getPost((res2) => {
+          setPosts(res2.reverse())
+          
+      });
+      }
+     })
+    
+  }
+  const handleDownvote=(postid)=>{
+    if (!user.token) {
+      alert('please login to dislike this post!')
+    }
+    doDownvote(postid, user.token,  (res)=>{
+   
+      if (res) {
+        console.log(res);
+        getPost((res2) => {
+          setPosts(res2.reverse())
+          
+      });
+      }
+     })
+    
+  }
+  
   const handleComment = (e, postid) => {
     e.preventDefault()
    if (!user.token) {
@@ -116,16 +142,46 @@ const Feed = () => {
                     }}
                   >
                     <div>
-                      {/* <FavoriteBorderIcon/> */}
-                      <AiOutlineLike />
-                      <Button size="small" color="primary">
+                      {single.upvote.includes(user.id)? 
+                       <>
+                       {single.upvote.length}
+                       <AiFillLike className="liked-icon"/> 
+                       <Button className="liked-btn" onClick={()=>handleUpvote(single._id)} size="small" color="primary">
+                         Liked
+                       </Button>
+                       </>
+                        : 
+                      <>
+                      {single.upvote.length}
+                      <AiOutlineLike /> 
+                      <Button onClick={()=>handleUpvote(single._id)} size="small" color="primary">
                         Like
                       </Button>
-                      <AiOutlineDislike />
-                      <Button size="small" color="primary">
+                      </>
+                      
+                      }
+
+{single.downvote.includes(user.id)? 
+                       <>
+                       {single.downvote.length}
+                       <AiFillDislike className="disliked-icon"/> 
+                       <Button className="disliked-btn" onClick={()=>handleDownvote(single._id)} size="small" color="primary">
+                         Disliked
+                       </Button>
+                       </>
+                        : 
+                      <>
+                      {single.downvote.length}
+                      <AiOutlineDislike /> 
+                      <Button onClick={()=>handleDownvote(single._id)} size="small" color="primary">
                         Dislike
                       </Button>
-                    </div>
+                      </>
+                      
+                      }
+
+
+                      </div>
                     
                   </CardActions>
                 </Card>
