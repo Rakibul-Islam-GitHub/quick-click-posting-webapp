@@ -18,7 +18,7 @@ const Homepage = () => {
     <>
      <Navbar/>
      <Upload setPosts={setPosts}/>
-     <Feed posts={posts}/>
+     <Feed posts={posts} setPosts={setPosts}/>
 
     </>
   );

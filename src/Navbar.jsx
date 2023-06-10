@@ -1,13 +1,22 @@
 import React, { useContext } from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logonav from "./images/QC Logo.png";
 import { AuthContext } from "./context/AuthContext";
 
 
 const Navbar = () => {
-  const { authenticated } = useContext(AuthContext)
+  const { authenticated, setAuthenticated, setUser } = useContext(AuthContext)
+const navigate= useNavigate()
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("authenticated");
+    setUser({id:'', name: '', email:'',  token:''});
+    setAuthenticated(false)
+    navigate('/login')
+  };
 
   return (
     <div>
@@ -21,12 +30,12 @@ const Navbar = () => {
             <li>
               <Link to="/">Home</Link>
             </li>
-            <li>
+            {/* <li>
               <a href="/friends">Friends</a>
-            </li>
+            </li> */}
             {authenticated ? <li>
               <Link to ={'#'}>
-              <button className="nav-button">Log Out</button></Link>
+              <button onClick={handleLogout} className="nav-button">Log Out</button></Link>
             </li> :
             <li >
               <Link to ={'/login'}>
