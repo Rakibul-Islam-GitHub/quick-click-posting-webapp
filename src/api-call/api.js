@@ -41,3 +41,20 @@ export const getComment = async(cb) => {
       }
    
   };
+  export const doRegister = async (formdata, cb) => {
+  
+  const res= await  fetch(`${API_URL}/api/user/register`, {
+        method: "POST",
+        body: JSON.stringify(formdata),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        }
+      })
+      if (res.status===200) {
+        const result=  await res.json()
+        return cb(result)
+      }else{
+        return cb(false)
+      }
+   
+  };
