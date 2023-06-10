@@ -1,10 +1,10 @@
 import { createContext, useState } from 'react'
-import { getUserState } from './helper'
+import { getAuth, getUserState } from './helper'
 
 
 
 const initialValue = {
-    authenticated: false,
+    authenticated: getAuth(),
     user: getUserState() ,
     setUser: ()=>{},
   setAuthenticated: () => {}
