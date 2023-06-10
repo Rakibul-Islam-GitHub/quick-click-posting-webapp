@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect,  useState } from "react";
 import { Button, TextField } from "@mui/material";
 import "./Feed.css";
 import image from "./images/mymind-XUlsF9LYeVk-unsplash.jpg";
@@ -16,12 +16,13 @@ import {
   CardActions,
   Avatar,
 } from "@mui/material";
-import {  getComment, getPost } from "./api-call/api";
-
+import {   doComment, getComment, getPost } from "./api-call/api";
+import { AuthContext } from "./context/AuthContext";
 const Feed = () => {
+  const {user}= useContext(AuthContext)
   const [posts, setPosts] = useState([])
   const [comments, setComments] = useState([])
-  const [comment, setComment] = useState('')
+  
   
 
   useEffect(() => {
@@ -33,12 +34,29 @@ const Feed = () => {
   });
     
   }, [])
-  // console.log(new Date(posts[0].createdAt).toDateString().slice(4,15));
 
 
-  const handleComment = (postid) => {
-    console.log(postid,comment);
+
+  const handleComment = (e, postid) => {
+    e.preventDefault()
+   if (!user.token) {
+    alert('You have to login first to comment!')
+   }
+   const comment= e.target.comment.value;
+   if (comment ==='') {
+    alert('comment can not be empty')
+    return
+   }
+
+   doComment({comment, postid}, user.token,  (res)=>{
    
+    if (res) {
+      e.target.reset()
+      getComment((res) => {
+        setComments(res)
+    });
+    }
+   })
   };
 
 
@@ -126,18 +144,24 @@ const Feed = () => {
                   ))}
                  
                 </div>
-                <div className="comment-box">
-                <TextField
+                <div >
+                  <form className="comment-box" onSubmit={(e)=>handleComment(e,single._id)}>
+                  <TextField
                   multiline
                   rows={2}
                   name="comment"
-                  value={comment}
-                  onChange={(e)=>setComment(e.target.value)}
                   label="write your comment.."
                   variant="outlined"
                   fullWidth
                 />
-                <Button onClick={()=>handleComment(single._id)} className="loginButton" type="submit" variant="contained" color="primary">Submit</Button>
+                {!user.token ?  <span>
+                  <Button disabled className="loginButton" type="submit" variant="contained" color="primary">Submit</Button> 
+                  <span className="comment-disable-msg">You have to login to comment here!</span>
+                </span> :
+                <Button  type="submit" className="loginButton" variant="contained" color="primary">Submit</Button>
+                }
+                  </form>
+                
                 </div>
                 
               </div>
