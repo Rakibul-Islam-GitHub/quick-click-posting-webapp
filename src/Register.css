@@ -41,7 +41,6 @@
   }
   
   .login-form {
-    width: 30%;
     padding: 20px;
     border: 1px solid #ccccccc9;
     border-radius: 20px;
@@ -105,4 +104,9 @@
     font-style: italic;
     color: #ff7f50;
     text-decoration: underline;
+  }
+
+  .logoName a {
+    text-decoration: none;
+    color: #ff7f50;;
   }

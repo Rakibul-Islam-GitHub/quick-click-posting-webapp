@@ -41,8 +41,7 @@
   }
   
   .login-form {
-    width: 30%;
-    padding: 20px;
+    padding: 30px;
     border: 1px solid #ccccccc9;
     border-radius: 20px;
     background-color: rgba(255, 255, 255, 0.888);
@@ -106,3 +105,20 @@
     color: #ff7f50;
     text-decoration: underline;
   }
+  .logoName a {
+    text-decoration: none;
+    color: #ff7f50;;
+  }
+
+  @media only screen and (max-width: 991px) {
+    .login-form{
+        width: 70%;
+        
+    }
+}
+@media only screen and (max-width: 768px) {
+  .login-form{
+        width: 90%;
+        
+    }
+}
