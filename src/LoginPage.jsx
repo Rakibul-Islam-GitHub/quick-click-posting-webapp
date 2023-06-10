@@ -19,6 +19,7 @@ const LoginPage = () => {
         
         if (res) {
         localStorage.setItem("user", JSON.stringify(res));
+        localStorage.setItem("authenticated", true);
     setUser(res);
     setAuthenticated(true)
     navigate('/')
